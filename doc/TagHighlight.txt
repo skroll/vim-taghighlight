@@ -45,9 +45,14 @@ Copyright:  (c) 2009-2012 by A. S. Budden             *TagHighlight-copyright*
 	4.1   Adding More Languages              |TagHighlight-adding|
 	4.1.1 Example                            |TagHighlight-add-example|
 
-	5.    Troubleshooting                    |TagHighlight-troubleshooting|
+	5.    Contributing Changes               |TagHighlight-contributions|
+	5.1   Suggestions for Improvements       |TagHighlight-suggestions|
+	5.2   Patches                            |TagHighlight-patches|
+	5.3   Usage Examples                     |TagHighlight-usage-examples|
 
-	6.    TagHighlight History               |TagHighlight-history|
+	6.    Troubleshooting                    |TagHighlight-troubleshooting|
+
+	7.    TagHighlight History               |TagHighlight-history|
 
 ==============================================================================
 2. TagHighlight Manual           *TagHighlight-manual*                      {{{1
@@ -307,7 +312,7 @@ Copyright:  (c) 2009-2012 by A. S. Budden             *TagHighlight-copyright*
 2.4.2 Example Configurations             *TagHighlight-example-configs*     {{{3
 
 	Introduction                                                          {{{4
-		
+
 		This section contains a few examples of configurations that may be
 		useful.  It is hoped that most users will be able to use TagHighlight
 		without setting any options at all, but these give some examples of
@@ -318,7 +323,7 @@ Copyright:  (c) 2009-2012 by A. S. Budden             *TagHighlight-copyright*
 		If you have any additional examples (e.g. how to use with different
 		variants of ctags, specific libraries or other custom configurations),
 		please add them to the wiki.
-	
+
 	Trivial Configuration                                                 {{{4
 
 		Use case: User has source code placed in multiple subdirectories and
@@ -345,7 +350,7 @@ Copyright:  (c) 2009-2012 by A. S. Budden             *TagHighlight-copyright*
 				  from Qt4 (e.g. QString) to be highlighted.
 
 		Implementation:
-			
+
 			Make sure that you have installed the standard libraries (see 
 			|TagHighlight-install-stdlib|).  The Qt4 library will be loaded
 			automatically.  Create a file called taghl_config.txt in the
@@ -434,7 +439,7 @@ Copyright:  (c) 2009-2012 by A. S. Budden             *TagHighlight-copyright*
 
 		ExtensionLanguageOverrides       Link:|TagHL-ExtensionLanguageOverrides|
 			Force a particular file extension to match a chosen language.
-			
+
 		FileTypeLanguageOverrides        Link:|TagHL-FileTypeLanguageOverrides|
 			Force a particular file type to match a chosen language.
 
@@ -490,6 +495,12 @@ Copyright:  (c) 2009-2012 by A. S. Budden             *TagHighlight-copyright*
 
 		CtagsExecutable                  Link:|TagHL-CtagsExecutable|
 		   Specify the name of (or full path to) exuberant ctags.
+
+		CtagsVariant                     Link:|TagHL-CtagsVariant|
+		   Use a variant of ctags other than exuberant.
+
+		CtagsArguments                   Link:|TagHL-CtagsArguments|
+		   Specify an explicit list of arguments to pass to ctags.
 
 	Locations of Files (normal):
 
@@ -588,6 +599,19 @@ Copyright:  (c) 2009-2012 by A. S. Budden             *TagHighlight-copyright*
 
 2.4.4 Option Details                     *TagHighlight-option-details*      {{{3
 
+	CtagsArguments                       *TagHL-CtagsArguments*
+		This option allows advanced users to specify an explicit list of
+		arguments to pass to ctags.  In most cases, you won't want to use
+		this, but if |TagHL-CtagsExecutable| is pointing to a non-recognised
+		version of ctags, you may need to specify custom arguments in order to
+		get it to work with |TagHighlight|.  Before using this, consider the
+		option |TagHL-CtagsVariant|.  If you do use CtagsArguments, please get
+		in touch and let me know why: I might be able to create a new
+		CtagsVariant to do whatever you need.
+
+		Option Type: List
+		Default: [] (empty list)
+
 	CtagsExeFull                         *TagHL-CtagsExeFull*
 		Used internally to tell the python part of the application where ctags
 		is.  Do not use this option as it will be automatically overwritten.
@@ -609,6 +633,17 @@ Copyright:  (c) 2009-2012 by A. S. Budden             *TagHighlight-copyright*
 		|TagHL-TagFileDirectory|.
 
 		See also |TagHL-TagFileName|.
+
+	CtagsVariant                         *TagHL-CtagsVariant*
+		Some variants of ctags expect different arguments to exuberant ctags.
+		This option allows you to tell |TagHighlight| to provide the arguments
+		in a different form.  Currently supported values for this option are
+		"exuberant" for the standard implementation and "jsctags" for jsctags.
+		Note that if you're using this option, you probably also want to set
+		|TagHL-CtagsExecutable| to something other than "ctags".
+
+		Option Type: String
+		Default: "exuberant"
 
 	DebugFile                            *TagHL-DebugFile*
 		If set to something other than "None" (the default), write debugging
@@ -1280,7 +1315,7 @@ Copyright:  (c) 2009-2012 by A. S. Budden             *TagHighlight-copyright*
 		* types_wxpy.vim (if you installed the GUI types addon)
 		* types_android.vim (if you installed the GUI types addon)
 		* types_jdk.vim (if you installed the GUI types addon)
-	
+
 	Installing the main plugin:          *TagHighlight-install-main*        {{{4
 
 		The TagHighlight plugin is distributed as a zip file.  If you are
@@ -1308,7 +1343,7 @@ Copyright:  (c) 2009-2012 by A. S. Budden             *TagHighlight-copyright*
 			:helptags path/to/vimfiles/doc
 <
 		as appropriate.
-	
+
 	Installing the compiled version:     *TagHighlight-install-compiled*    {{{4
 
 		If you want to use the compiled version of the plugin (if you do not
@@ -1365,7 +1400,7 @@ Copyright:  (c) 2009-2012 by A. S. Budden             *TagHighlight-copyright*
 	* "Qt4": Qt4 (C++)
 	* "wxpython": wxPython (Python; limited support)
 	* "wxWidgets": wxWidgets (C++)
-	
+
 	If a source file is opened that looks like it might be part of one of
 	these libraries, the standard library highlighter is automatically loaded.
 	Forcing loading of a particular library can be achieved using the option
@@ -1418,7 +1453,7 @@ Copyright:  (c) 2009-2012 by A. S. Budden             *TagHighlight-copyright*
 			           returns 'Load', load the library; if it returns 'Skip',
 			           do not load the library.  Any other return value is an
 			           error.
-	
+
 	Other options that may be required depending on the CheckMode:
 
 		MatchREs - list of Vim regular expressions to compare against the
@@ -1442,7 +1477,7 @@ Copyright:  (c) 2009-2012 by A. S. Budden             *TagHighlight-copyright*
 
 	1. Run ctags --list-languages and check that the required language is
 	   present.
-	   
+
 	2. If you're using a custom version of ctags highlighter with extra
 	   languages, you may need to add the details to the kind list in
 	   plugin/TagHighlight/data/kinds.txt (for most standard languages, this
@@ -1532,14 +1567,14 @@ Copyright:  (c) 2009-2012 by A. S. Budden             *TagHighlight-copyright*
 	8. Send me a copy for inclusion in the main distribution.  If you're
 	   sending it to me as a bitbucket or github pull request, it would help
 	   enormously if you could also also:
-	   
+
 	   * Update the list of languages (|TagHighlight-languages|) in this
 	     file.
 	   * Update the list of languages in README.md (shown on the bitbucket
 	     and github front pages).
 	   * Add a note in the latest entry in the change log in this file
 	     (|TagHighlight-history|).  If there isn't an entry there for an
-		 unreleased version, please add one (something like
+		 unreleased version, please add one: something like
 >
 			x.x.x: xxth Xxxxxxxx 2012  : Added support for LANGUAGE.
 <
@@ -1567,7 +1602,73 @@ Copyright:  (c) 2009-2012 by A. S. Budden             *TagHighlight-copyright*
 	It really is that easy!
 
 ==============================================================================
-5. Troubleshooting                       *TagHighlight-troubleshooting*     {{{1
+5. Contributing Changes                  *TagHighlight-contributions*       {{{1
+
+	Contributions to TagHighlight are, of course, very welcome.  The bug
+	tracker is currently private (due to it running on my home server behind a
+	firewall) and this is unlikely to change in the near future.  However, the
+	code is public and I am happy to accept, patches or suggestions for
+	improvements and usage examples.
+
+5.1 Suggestions for Improvements         *TagHighlight-suggestions*         {{{2
+
+	For suggestions for improvements, please send me an email to:
+>
+		abudden _AT_ gmail.com
+<
+	Please include as much detail as possible.
+
+5.2 Patches                              *TagHighlight-patches*             {{{2
+
+	If you've made an improvement to TagHighlight and would like your changes
+	to be included in the main distribution, there are a number of ways of
+	doing this.  The code is maintained in a Mercurial repository and
+	published on bitbucket.  There is also a github mirror if you really
+	prefer.  In rough order of preference, the ways you can send me a patch
+	are:
+
+		1. Bitbucket pull request (https://bitbucket.org/abudden/easycolour)
+
+		2. Mercurial bundle (see "hg help bundle") attached to an email.
+
+		3. Mercurial patchbomb email (for details of the patchbomb extension,
+		please see http://mercurial.selenic.com/wiki/PatchbombExtension).
+
+		4. Github pull request (https://github.com/abudden/EasyColour).
+
+	If sending a patch, please follow these guidelines:
+
+	* Could should conform to the same general coding standard as the existing
+	  source tree.  This isn't especially strict or well documented, but at
+	  the very least python code should be indented with four spaces and
+	  everything else should be indented with hard tabs but alignment should
+	  be with spaces.  As a general guide, '^\t\+' is good but either '\S\t'
+	  or '^\s\+' is bad (there are exceptions).
+
+	* Please help to maintain the documentation at the same time, including:
+
+		- The history in |TagHighlight-history|: if there isn't an entry there
+		  for an unreleased version, pease add one, something like:
+>
+			x.x.x: xxth Xxxxxxxx 2012  : Added support for LANGUAGE.
+<
+		  (leave the x characters in, I'll change these when I release the
+		  next version).
+
+		- Any options that have been added: add these both to the categorised
+		  |TagHighlight-option-list| and the alphabetic (and more detailed)
+		  |TagHighlight-option-summary|.
+
+5.3 Usage Examples                       *TagHighlight-usage-examples*      {{{2
+
+	There is a wiki available at:
+>
+		https://bitbucket.org/abudden/taghighlight/wiki/Home
+<
+	Please feel free to add usage examples to this page.
+
+==============================================================================
+6. Troubleshooting                       *TagHighlight-troubleshooting*     {{{1
 
 	A debugging log can be generated by running the command:
 >
@@ -1592,15 +1693,26 @@ Copyright:  (c) 2009-2012 by A. S. Budden             *TagHighlight-copyright*
 <
 
 ==============================================================================
-6. TagHighlight History                *TagHighlight-history*               {{{1
+7. TagHighlight History                *TagHighlight-history*               {{{1
 
 x.x.x: xxth Xxxxxxxx 2012  : Fixed globpath to prevent use of wildignore
                              option (thanks to Vincent).  Added support for
                              Javascript (thanks to Piotr Yordanov).
                              Transferred source repository from git to
                              mercurial (will maintain git mirror on github).
-                             Added a reference (in the documentation) to the
-                             new wiki.
+                             Added support for custom ctags argument lists
+                             (option CtagsArguments) in order to allow use
+                             with versions of ctags (like jsctags) that don't
+                             accept the same arguments as exuberant ctags
+                             (thanks to Piotr Yordanov for the suggestion and
+							  help getting jsctags working).  Also added
+							 support for CtagsVariant arguments to simplify
+							 this process for known variants.  Support for
+							 jsctags is still fairly flaky as jsctags seems to
+							 fail very easily (and I've only used it for
+							 generating tags for its own source code!).  Added
+							 a reference (in the documentation) to the new
+							 wiki.
 
 2.1.5: 20th February 2012  : Added support for Scala (thanks to Lee Gauthier).
 

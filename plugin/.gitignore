@@ -1,0 +1,4 @@
+.*.swp
+*.pyc
+types_*.taghl
+doc/tags
